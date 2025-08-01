@@ -6,9 +6,9 @@ import jakarta.validation.constraints.PositiveOrZero;
 
 import java.math.BigDecimal;
 
-public record TransactionDto(
+public record TransactionRequestDto(
         @PositiveOrZero(message = "Invalid amount.")
-        @NotNull(message = "Invalid amount.")
+        @NotNull(message = "The field 'amount' is required.")
         BigDecimal amount,
         @NotBlank(message = "Sender is required.")
         String sender,

@@ -1,6 +1,6 @@
 package com.github.abeatrizsc.picpay.simplified.challenge.infra.gateways;
 
-import com.github.abeatrizsc.picpay.simplified.challenge.core.dtos.TransactionDto;
+import com.github.abeatrizsc.picpay.simplified.challenge.core.dtos.TransactionRequestDto;
 import com.github.abeatrizsc.picpay.simplified.challenge.core.exceptions.NotificationSendException;
 import com.github.abeatrizsc.picpay.simplified.challenge.core.exceptions.TransactionErrorException;
 import com.github.abeatrizsc.picpay.simplified.challenge.core.exceptions.UserNotFoundException;
@@ -34,7 +34,7 @@ public class TransactionRepositoryGateway implements TransactionGateway {
 
     @Override
     @Transactional
-    public void createTransaction(TransactionDto transaction) {
+    public void createTransaction(TransactionRequestDto transaction) {
         UserEntity sender = userRepository.findById(transaction.sender()).orElseThrow(() -> new UserNotFoundException("Invalid sender."));
         UserEntity receiver = userRepository.findById(transaction.receiver()).orElseThrow(() -> new UserNotFoundException("Invalid receiver."));
 

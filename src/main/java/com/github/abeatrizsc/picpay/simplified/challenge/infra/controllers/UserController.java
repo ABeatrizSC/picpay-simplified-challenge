@@ -6,10 +6,12 @@ import com.github.abeatrizsc.picpay.simplified.challenge.core.dtos.UserResponseD
 import com.github.abeatrizsc.picpay.simplified.challenge.core.usecases.user.CreateUserUseCase;
 import com.github.abeatrizsc.picpay.simplified.challenge.core.usecases.user.DepositFundsUseCase;
 import com.github.abeatrizsc.picpay.simplified.challenge.core.usecases.user.GetAllUsersUseCase;
-import com.github.abeatrizsc.picpay.simplified.challenge.infra.dtos.UserCreateDto;
+import com.github.abeatrizsc.picpay.simplified.challenge.infra.dtos.UserCreateRequestDto;
 import com.github.abeatrizsc.picpay.simplified.challenge.infra.mappers.UserMapper;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,17 +30,19 @@ public class UserController {
     private final UserMapper userMapper;
 
     @GetMapping
-    public List<UserResponseDto> getAll() {
-        return getAllUsers.execute();
+    public ResponseEntity<List<UserResponseDto>> getAll() {
+        return ResponseEntity.ok(getAllUsers.execute());
     }
 
     @PostMapping
-    public void createUser(@RequestBody @Valid UserCreateDto user) {
+    public ResponseEntity createUser(@RequestBody @Valid UserCreateRequestDto user) {
         createUser.execute(userMapper.userCreateToUser(user));
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/deposits")
-    public User depositFunds(@RequestBody @Valid DepositFundsRequestDto depositFundsRequestDto) {
-        return depositFunds.execute(depositFundsRequestDto);
+    public ResponseEntity<User> depositFunds(@RequestBody @Valid DepositFundsRequestDto depositFundsRequestDto) {
+        return ResponseEntity.ok(depositFunds.execute(depositFundsRequestDto));
     }
 }

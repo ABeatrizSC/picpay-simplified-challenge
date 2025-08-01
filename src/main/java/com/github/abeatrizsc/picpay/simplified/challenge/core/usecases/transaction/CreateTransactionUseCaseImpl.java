@@ -1,7 +1,7 @@
 package com.github.abeatrizsc.picpay.simplified.challenge.core.usecases.transaction;
 
 import com.github.abeatrizsc.picpay.simplified.challenge.core.domain.User;
-import com.github.abeatrizsc.picpay.simplified.challenge.core.dtos.TransactionDto;
+import com.github.abeatrizsc.picpay.simplified.challenge.core.dtos.TransactionRequestDto;
 import com.github.abeatrizsc.picpay.simplified.challenge.core.enums.UserTypeEnum;
 import com.github.abeatrizsc.picpay.simplified.challenge.core.exceptions.InsufficientBalanceException;
 import com.github.abeatrizsc.picpay.simplified.challenge.core.exceptions.UnauthorizedTransactionException;
@@ -18,7 +18,7 @@ public class CreateTransactionUseCaseImpl implements CreateTransactionUseCase {
     }
 
     @Override
-    public void execute(TransactionDto transaction) {
+    public void execute(TransactionRequestDto transaction) {
         User sender = userGateway.getById(transaction.sender());
         User receiver = userGateway.getById(transaction.receiver());
 

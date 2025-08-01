@@ -27,7 +27,7 @@ public class RestControlAdvice {
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<RestErrorMessage> BusinessException(BusinessException e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestErrorMessage(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST, e.getMessage()));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new RestErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage()));
     }
 
     @ExceptionHandler(TransactionErrorException.class)

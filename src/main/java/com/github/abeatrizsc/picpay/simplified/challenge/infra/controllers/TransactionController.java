@@ -1,9 +1,11 @@
 package com.github.abeatrizsc.picpay.simplified.challenge.infra.controllers;
 
-import com.github.abeatrizsc.picpay.simplified.challenge.core.dtos.TransactionDto;;
+import com.github.abeatrizsc.picpay.simplified.challenge.core.dtos.TransactionRequestDto;
 import com.github.abeatrizsc.picpay.simplified.challenge.core.usecases.transaction.CreateTransactionUseCase;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +18,9 @@ public class TransactionController {
     private final CreateTransactionUseCase createTransaction;
 
     @PostMapping
-    public void createTransaction(@RequestBody @Valid TransactionDto transaction) {
+    public ResponseEntity createTransaction(@RequestBody @Valid TransactionRequestDto transaction) {
         createTransaction.execute(transaction);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
