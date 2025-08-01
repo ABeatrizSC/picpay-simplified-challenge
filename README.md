@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/Status-In%20Progress-yellow?style=for-the-badge&logo=headspace&logoColor=orange&color=yellow" alt="istudy-repo-status" />
+  <img src="https://img.shields.io/badge/Status-In%20Progress-yellow?style=for-the-badge&logo=headspace&logoColor=orange&color=yellow" alt="repo-status" />
 </p>
 
 
@@ -69,6 +69,27 @@ mvn spring-boot:run
 
 # API Endpoints
 ## Users
+### **GET** `/api/v1/users`
+- Deposits an amount to the user.
+
+#### Success Response Body
+- `List<UserResponseDto>`
+
+```json
+[
+  {
+    "fullName": "John",
+    "userType": "CUSTOMER",
+    "email": "john@example.com"
+  },
+  {
+    "fullName": "Alice",
+    "userType": "MERCHANT",
+    "email": "alice@example.com"
+  }
+]
+```
+
 ### **POST** `/api/v1/users`
 - Create a new user.
 
@@ -86,7 +107,7 @@ mvn spring-boot:run
 ```
 
 #### Success Response Body
-- `200 OK`
+- `201 CREATED`
 
 ### **POST** `/api/v1/users/deposits`
 - Deposits an amount to the user.
@@ -115,27 +136,6 @@ mvn spring-boot:run
 }
 ```
 
-### **GET** `/api/v1/users`
-- Deposits an amount to the user.
-
-#### Success Response Body
-- `List<UserResponseDto>`
-
-```json
-[
-  {
-    "fullName": "John",
-    "userType": "CUSTOMER",
-    "email": "john@example.com"
-  },
-  {
-    "fullName": "Alice",
-    "userType": "MERCHANT",
-    "email": "alice@example.com"
-  }
-]
-```
-
 ## Transactions
 ### **POST** `/api/v1/transactions`
 - Performs a transaction of values from one user to another.
@@ -152,7 +152,7 @@ mvn spring-boot:run
 ```
 
 #### Success Response Body
-- `200 OK`
+- `201 CREATED`
 
 ## Errors handled
 ### Field validation error (`MethodArgumentNotValidException`)
@@ -170,8 +170,8 @@ mvn spring-boot:run
 
 ```json
 {
-  "status": 400,
-  "error": "BAD_REQUEST",
+  "status": 500,
+  "error": "INTERNAL_SERVER_ERROR",
   "message": "The available balance is insufficient to complete the transfer." //Variable
 }
 ```
